@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Meeting Assistant</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .pulse-animation {
+            animation: pulse-ring 1.5s cubic-bezier(0.24, 0, 0.38, 1) infinite, pulse-dot 1.5s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(.33);
+            }
+            80%, 100% {
+                opacity: 0;
+            }
+        }
+        @keyframes pulse-dot {
+            0% {
+                transform: scale(.8);
+            }
+            50% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(.8);
+            }
+        }
+        .user-bubble {
+            background-color: #e0e7ff;
+            color: #3730a3;
+            border-radius: 0.75rem 0.75rem 0 0.75rem;
+        }
+        .ai-bubble {
+            background-color: #fff;
+            color: #1f2937;
+            border-radius: 0.75rem 0.75rem 0.75rem 0;
+            border: 1px solid #e5e7eb;
+        }
+        .file-input {
+            display: none;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <!-- Main Card Container -->
+    <div class="w-full max-w-lg bg-white rounded-xl shadow-2xl p-6 md:p-8 border-t-4 border-indigo-600">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-2 text-center">
+            <svg class="w-7 h-7 inline-block mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M3.5 8.026a.5.5 0 01.5.5V14a1 1 0 001 1h4.586a1 1 0 00.707-.293l1.5-1.5a1 1 0 00.293-.707V11.5a.5.5 0 011 0v2.5a2.5 2.5 0 01-2.5 2.5h-5A2.5 2.5 0 013 14.5v-6A.5.5 0 013.5 8.026zM10 18a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+            Meeting AI Assistant (Text Only)
+        </h1>
+        <p id="status-message" class="text-center text-sm text-gray-500 mb-4">Upload a file, ask a question, and get a contextual reply.</p>
+        
+        <!-- File Upload Area -->
+        <div class="mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50 shadow-sm">
+            <label for="file-upload" class="flex items-center justify-between cursor-pointer">
+                <span class="text-indigo-600 font-semibold text-sm">Upload Context File (Optional)</span>
+                <input id="file-upload" type="file" accept=".txt,.pdf,image/*" class="file-input" onchange="handleFileSelect(event)">
+                <button type="button" onclick="document.getElementById('file-upload').click()" class="px-3 py-1 bg-indigo-500 text-white text-xs font-medium rounded-full hover:bg-indigo-600 transition duration-150 shadow-md">
+                    Select File
+                </button>
+            </label>
+            <div id="file-status-box" class="mt-2 text-sm text-gray-700 h-5">
+                <span id="file-name" class="italic text-gray-500">No file selected.</span>
+                <button id="clear-file-btn" onclick="clearFile()" class="hidden text-red-500 hover:text-red-700 ml-2 text-xs font-semibold">
+                    (Clear)
+                </button>
+            </div>
+        </div>
+
+        <!-- History Display Area -->
+        <div id="conversation-history" class="h-60 overflow-y-auto p-3 mb-4 bg-gray-100 rounded-lg border border-gray-200 space-y-3">
+            <p class="text-center text-sm text-gray-400 mt-2">Start a conversation to see history here.</p>
+        </div>
+        
+        <!-- Current Turn Results Area -->
+        <div class="space-y-4">
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="font-semibold text-gray-700 flex items-center mb-1">
+                    <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    What I Heard (Current):
+                </h3>
+                <p id="transcription-output" class="text-gray-800 italic text-sm">...</p>
+            </div>
+
+            <div class="bg-indigo-50 p-4 rounded-lg shadow-inner">
+                <h3 class="font-semibold text-indigo-800 flex items-center mb-2">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M18 9v3a2 2 0 002-2V8a2 2 0 00-2-2h-3l-1-2H8L7 6H4a2 2 0 00-2 2v7a2 2 0 002 2h7a2 2 0 002-2v-3a.5.5 0 011 0zM12 12a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+                    Quick AI Answer (Current):
+                </h3>
+                <p id="answer-output" class="text-gray-900 leading-relaxed">...</p>
+            </div>
+        </div>
+
+        <!-- Recording Button Area -->
+        <div class="flex justify-center mt-6">
+            <div class="relative">
+                <button id="record-btn" class="w-20 h-20 rounded-full bg-indigo-600 text-white shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105 disabled:opacity-50 flex items-center justify-center focus:outline-none" onclick="toggleRecording()">
+                    <svg id="mic-icon" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7v1m0 0v1m0-1a7 7 0 01-7-7m7 7a7 7 0 007-7m-7 7H5m14 0h-2m-2-4h-2m-2 0h-2m2 0V5m0 0V3m0 2h-2m0 0h-2m2 0V3m0 2v4"></path></svg>
+                </button>
+                <!-- Pulse effect for recording state -->
+                <div id="pulse-indicator" class="hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-indigo-400 opacity-50 rounded-full pulse-animation"></div>
+            </div>
+        </div>
+
+        <!-- Error/Log Area -->
+        <div id="error-box" class="mt-4 hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+            <strong class="font-bold">Error!</strong>
+            <span id="error-message" class="block sm:inline"></span>
+        </div>
+    </div>
+
+    <script>
+        // --- API Configuration ---
+        const apiKey = ""; 
+        // Using the base URL without the ?key=${apiKey} suffix to rely on runtime authentication injection.
+        const TEXT_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent";
+        
+        // --- UI Elements ---
+        const recordBtn = document.getElementById('record-btn');
+        const statusMessage = document.getElementById('status-message');
+        const transcriptionOutput = document.getElementById('transcription-output');
+        const answerOutput = document.getElementById('answer-output');
+        const pulseIndicator = document.getElementById('pulse-indicator');
+        const errorBox = document.getElementById('error-box');
+        const errorMessage = document.getElementById('error-message');
+        const conversationHistoryDiv = document.getElementById('conversation-history');
+        const fileNameElement = document.getElementById('file-name');
+        const clearFileBtn = document.getElementById('clear-file-btn');
+
+        // --- State ---
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let isRecording = false;
+        let uploadedFileContext = null; // Stores {data: string, mimeType: string, name: string}
+        let chatHistory = []; 
+
+        // --- File Handling Functions ---
+
+        /**
+         * Clears the file state and updates the UI.
+         */
+        window.clearFile = function() {
+            uploadedFileContext = null;
+            document.getElementById('file-upload').value = '';
+            fileNameElement.textContent = 'No file selected.';
+            clearFileBtn.classList.add('hidden');
+            statusMessage.textContent = 'Context file cleared. Ready for a new question.';
+        }
+
+        /**
+         * Reads the selected file, converts it to base64, and updates the state.
+         * @param {Event} event 
+         */
+        window.handleFileSelect = function(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                clearFile();
+                return;
+            }
+
+            // Simple validation (10MB limit)
+            if (file.size > 10 * 1024 * 1024) {
+                displayError('File size exceeds 10MB limit.');
+                clearFile();
+                return;
+            }
+            
+            // Show loading status
+            fileNameElement.textContent = `Reading file: ${file.name}...`;
+            clearFileBtn.classList.add('hidden');
+            statusMessage.textContent = 'Preparing context file...';
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64String = e.target.result.split(',')[1];
+                uploadedFileContext = {
+                    data: base64String,
+                    mimeType: file.type || 'application/octet-stream', // Fallback for unknown types
+                    name: file.name
+                };
+                
+                // Update UI for successful read
+                fileNameElement.textContent = `${file.name}`;
+                clearFileBtn.classList.remove('hidden');
+                statusMessage.textContent = 'File ready. Ask your question using your voice.';
+            };
+            
+            reader.onerror = function() {
+                displayError('Failed to read file.');
+                clearFile();
+            };
+
+            // Read the file as a data URL (Base64)
+            reader.readAsDataURL(file);
+        }
+
+        // --- UI and Error Functions (Unchanged) ---
+
+        /**
+         * Displays an error message in the dedicated error box.
+         * @param {string} message 
+         */
+        function displayError(message) {
+            errorBox.classList.remove('hidden');
+            errorMessage.textContent = message;
+            statusMessage.textContent = 'Error occurred.';
+        }
+
+        /**
+         * Renders the complete chat history in the dedicated div.
+         */
+        function renderHistory() {
+            if (chatHistory.length === 0) {
+                conversationHistoryDiv.innerHTML = '<p class="text-center text-sm text-gray-400 mt-2">Start a conversation to see history here.</p>';
+                return;
+            }
+
+            // Move the current transcription/answer to the history div
+            const currentTurn = `
+                <!-- User Question Bubble -->
+                <div class="flex justify-end">
+                    <div class="user-bubble p-3 max-w-[85%] shadow-sm">
+                        <p class="font-medium text-sm">You:</p>
+                        <p class="text-sm">${transcriptionOutput.textContent}</p>
+                    </div>
+                </div>
+                <!-- AI Answer Bubble -->
+                <div class="flex justify-start">
+                    <div class="ai-bubble p-3 max-w-[85%] shadow-md">
+                        <p class="font-medium text-sm text-indigo-700">AI Quick Reply:</p>
+                        <p class="text-sm">${answerOutput.textContent}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Generate HTML for all previous turns
+            const historyHtml = chatHistory.slice(0, -1).map(turn => `
+                <!-- Previous User Bubble -->
+                <div class="flex justify-end">
+                    <div class="user-bubble p-3 max-w-[85%] opacity-75">
+                        <p class="font-medium text-xs">You:</p>
+                        <p class="text-xs">${turn.userText}</p>
+                    </div>
+                </div>
+                <!-- Previous AI Answer Bubble -->
+                <div class="flex justify-start">
+                    <div class="ai-bubble p-3 max-w-[85%] opacity-75">
+                        <p class="font-medium text-xs text-indigo-700">AI Quick Reply:</p>
+                        <p class="text-xs">${turn.aiAnswer}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Combine previous history and the current turn
+            conversationHistoryDiv.innerHTML = historyHtml + currentTurn;
+            // Scroll to the bottom to see the latest message
+            conversationHistoryDiv.scrollTop = conversationHistoryDiv.scrollHeight;
+        }
+
+
+        /**
+         * Clears all outputs and error messages.
+         */
+        function resetUI() {
+            transcriptionOutput.textContent = '...';
+            answerOutput.textContent = '...';
+            errorBox.classList.add('hidden');
+            errorMessage.textContent = '';
+            recordBtn.disabled = false;
+        }
+
+        /**
+         * Converts an Audio Blob to a Base64 string for the Gemini API.
+         * @param {Blob} blob 
+         * @returns {Promise<string>} Base64 data string.
+         */
+        function base64EncodeBlob(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    // Remove the header (e.g., "data:audio/webm;codecs=opus;base64,")
+                    const base64String = reader.result.split(',')[1];
+                    resolve(base64String);
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        // --- Core Application Logic (Modified for File Context) ---
+
+        /**
+         * Handles the click event for the record button.
+         */
+        async function toggleRecording() {
+            if (!isRecording) {
+                // Start Recording
+                try {
+                    resetUI();
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm;codecs=opus' });
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm;codecs=opus' });
+                        processAudio(audioBlob);
+                        stream.getTracks().forEach(track => track.stop());
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    recordBtn.classList.add('bg-red-600', 'hover:bg-red-700');
+                    recordBtn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+                    pulseIndicator.classList.remove('hidden');
+                    statusMessage.textContent = 'Recording... Speak clearly.';
+
+                } catch (err) {
+                    if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+                        displayError('No microphone found. Please ensure a microphone is connected and enabled.');
+                    } else if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+                        displayError('Microphone access denied. Please allow microphone permissions in your browser settings and try again.');
+                    } else {
+                        displayError('An error occurred while accessing the microphone. See console for details.');
+                    }
+                    console.error("Microphone access error:", err);
+                    isRecording = false;
+                    recordBtn.disabled = false;
+                }
+            } else {
+                // Stop Recording
+                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                    mediaRecorder.stop();
+                }
+                isRecording = false;
+                recordBtn.disabled = true;
+                recordBtn.classList.remove('bg-red-600', 'hover:bg-red-700');
+                recordBtn.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+                pulseIndicator.classList.add('hidden');
+                statusMessage.textContent = 'Processing... Getting the answer.';
+                transcriptionOutput.textContent = 'Sending audio and context to AI...';
+            }
+        }
+
+        /**
+         * Builds the payload, sends audio/file/history to Gemini, and updates the UI.
+         */
+        async function processAudio(audioBlob) {
+            try {
+                const base64Audio = await base64EncodeBlob(audioBlob);
+                
+                // 1. Prepare Content Parts Array
+                const contentParts = [];
+
+                // A. Add Context File if present
+                if (uploadedFileContext) {
+                    // Prepend the file part with a text instruction
+                    contentParts.push({ text: `[DOCUMENT CONTEXT] A file named '${uploadedFileContext.name}' has been provided. Use this document as your primary source of information to answer the user's question.` });
+                    contentParts.push({
+                        inlineData: {
+                            mimeType: uploadedFileContext.mimeType,
+                            data: uploadedFileContext.data
+                        }
+                    });
+                }
+                
+                // 2. Format Conversation History into a context string
+                let contextString = chatHistory.map(turn => 
+                    `User: ${turn.userText}\nAI: ${turn.aiAnswer}`
+                ).join('\n');
+                
+                if (contextString) {
+                    contextString = `[HISTORY CONTEXT] Previous conversation for reference:\n${contextString}\n\n`;
+                }
+
+                // 3. Optimized Prompt with all context injection
+                const userPrompt = contextString + 
+                    "Transcribe the following audio precisely. Then, on a new line, provide a direct, concise, and short answer to the question asked in the audio. **The answer must be friendly, conversational, and helpful (human-like tone).** Base your answer primarily on the attached document (if present). If the document does not contain the answer, use your general knowledge to provide the best possible response. DO NOT state that the information is missing from the document. Only respond with the transcription and the answer, nothing else. Use the provided history context if the question is a follow-up.";
+                
+                // B. Add the main prompt and audio data
+                contentParts.push({ text: userPrompt });
+                contentParts.push({
+                    inlineData: {
+                        mimeType: 'audio/webm',
+                        data: base64Audio
+                    }
+                });
+
+                const payload = {
+                    contents: [{
+                        role: "user",
+                        parts: contentParts
+                    }],
+                };
+
+                const result = await callGeminiAPI(TEXT_API_URL, payload);
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (text) {
+                    // Simple parsing: first line is assumed to be transcription, rest is answer
+                    const lines = text.split('\n').filter(line => line.trim() !== '');
+                    
+                    const transcription = lines.length > 0 ? lines[0].trim() : "Could not determine transcription.";
+                    const answer = lines.slice(1).join(' ').trim() || "No detailed answer provided by the model.";
+
+                    // 4. Update UI fields for the current turn
+                    transcriptionOutput.textContent = transcription;
+                    answerOutput.textContent = answer;
+                    
+                    // 5. Store the new turn in chat history
+                    chatHistory.push({ userText: transcription, aiAnswer: answer });
+
+                    // 6. Render the full history
+                    renderHistory();
+                    
+                } else {
+                    throw new Error("AI response was empty or malformed.");
+                }
+
+            } catch (error) {
+                // If it's a 401 error, log a specific message for better debugging.
+                if (error.message && error.message.includes('401')) {
+                    displayError('Authorization error (401). The API key may be invalid or missing from the environment.');
+                    console.error("Authorization Error (401). Check API key setup.", error);
+                } else {
+                    displayError('Failed to get AI response. Check the console for details.');
+                    console.error("AI Processing Error:", error);
+                }
+            } finally {
+                statusMessage.textContent = 'Ready for a new question.';
+                recordBtn.disabled = false;
+            }
+        }
+        
+        /**
+         * Generic function to call the Gemini API with exponential backoff.
+         */
+        async function callGeminiAPI(url, payload) {
+            const maxRetries = 3;
+            let response = null;
+
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    // Use the provided URL (which is now the base endpoint without ?key=)
+                    response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        return await response.json(); // Success! Return the JSON result
+                    } else if (response.status === 429 && i < maxRetries - 1) {
+                        const delay = Math.pow(2, i) * 1000 + Math.random() * 500;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    } else {
+                        // Throw the error with status and text for better debugging
+                        const errorText = await response.text();
+                        throw new Error(`API returned status ${response.status}: ${errorText}`);
+                    }
+                } catch (error) {
+                    if (i === maxRetries - 1) throw error; 
+                }
+            }
+            throw new Error("Failed to get a response from the API after multiple retries.");
+        }
+
+        // Initialize UI status
+        document.addEventListener('DOMContentLoaded', () => {
+            resetUI();
+            renderHistory(); 
+            // Also initialize file status
+            fileNameElement.textContent = 'No file selected.';
+        });
+    </script>
+</body>
+</html>
+
