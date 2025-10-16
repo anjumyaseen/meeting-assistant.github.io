@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Meeting Assistant • LynixAI</title>
-  <meta name="description" content="LynixAI Meeting Assistant: summarize, transcribe, and manage meetings using Gemini. Sign in with your Google account to launch." />
-  <!-- Place your AdSense script here once approved:
+  <title>Meeting Assistant • Fawzix AI Solutions</title>
+  <meta name="description" content="Launch the Gemini-powered Meeting Assistant by Fawzix AI Solutions. Sign in with your Google account to continue." />
+  <!-- AdSense: paste your client id when approved
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script>
   -->
   <link rel="preconnect" href="https://accounts.google.com" />
@@ -13,79 +13,62 @@
   <style>
     :root { --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --muted:#475569; --btn:#2563eb; --btnh:#1e40af; }
     * { box-sizing:border-box; }
-    body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; background:linear-gradient(180deg,#f9fafb 0%,#eef2ff 100%); color:var(--text); }
-    header { padding:16px 24px; display:flex; justify-content:space-between; align-items:center; max-width:1100px; margin:0 auto; }
-    header a { color:#1e3a8a; text-decoration:none; font-weight:700; }
-    nav a { margin-left:16px; color:#334155; text-decoration:none; font-weight:600; }
-    nav a:hover { color:#111827; }
-    .hero { display:grid; place-items:center; min-height:58vh; padding:24px; }
-    .card { background:var(--card); width:min(640px,94%); padding:28px 22px; border-radius:16px; box-shadow:0 10px 30px rgba(2,6,23,.08); text-align:center; }
-    h1 { margin:.2rem 0 0.6rem; font-size:2rem; color:#1e3a8a; }
+    body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; background:#f8fafc; color:var(--text); }
+    header { padding:20px 24px; text-align:center; }
+    header img { height:72px; width:auto; display:block; margin:0 auto 6px; }
+    header .brand { font-weight:800; color:#1e3a8a; font-size:1.1rem; letter-spacing:.02em; }
+    main { display:grid; place-items:center; min-height:58vh; padding:24px; }
+    .card { background:var(--card); width:min(640px,94%); padding:28px 22px; border-radius:16px; box-shadow:0 8px 28px rgba(2,6,23,.08); text-align:center; border:1px solid #e5e7eb; }
+    h1 { margin:.2rem 0 .6rem; font-size:1.9rem; color:#1e3a8a; }
     p  { margin:.5rem 0 1.25rem; color:var(--muted); }
     .btn { display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:10px; background:var(--btn); color:#fff; text-decoration:none; font-weight:600; border:none; cursor:pointer; }
     .btn:hover { background:var(--btnh); }
-    .ghost { margin-top:10px; display:block; color:#334155; font-size:.9rem; }
+    .ghost { margin-top:10px; display:block; color:#334155; font-size:.92rem; }
     .small { margin-top:14px; color:#64748b; font-size:.85rem; }
     .section { max-width:1100px; margin:24px auto; padding:0 24px; }
     .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:16px; }
     .feature { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px; }
-    footer { margin:36px auto; padding:24px; max-width:1100px; color:#6b7280; font-size:.9rem; border-top:1px solid #e5e7eb; }
+    footer { margin:36px auto 24px; padding:12px 24px; max-width:1100px; color:#6b7280; font-size:.9rem; text-align:center; }
     .ads { background:#f1f5f9; border:1px dashed #cbd5e1; border-radius:12px; padding:12px; color:#475569; }
   </style>
   <script>
-    function startGoogleSignin() {
-      window.location.href = "https://accounts.google.com/AccountChooser?flowName=GlifWebSignIn&flowEntry=ServiceLogin&continue=https%3A%2F%2Fg.co%2Fgemini%2Fshare%2F816a84550275";
-    }
+    function startGoogleSignin() { window.location.href = "https://accounts.google.com/AccountChooser?flowName=GlifWebSignIn&flowEntry=ServiceLogin&continue=https%3A%2F%2Fg.co%2Fgemini%2Fshare%2F816a84550275"; }
   </script>
 </head>
 <body>
   <header>
-    <a href="/">LynixAI</a>
-    <nav>
-      <a href="#features">Features</a>
-      <a href="#faq">FAQ</a>
-      <a href="/privacy.html">Privacy</a>
-      <a href="/terms.html">Terms</a>
-    </nav>
+    <img src="./logo-1.png" alt="Fawzix AI Solutions logo" />
+    <div class="brand">FAWZIX AI SOLUTIONS</div>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="card">
-        <h1>Meeting Assistant</h1>
-        <p>Summarize, transcribe, and manage meetings with Gemini. Use your own Google account — we never handle your credentials.</p>
-        <button class="btn" onclick="startGoogleSignin()">Continue to Google</button>
-        <a class="ghost" href="https://g.co/gemini/share/816a84550275" target="_blank" rel="noopener">Open the app directly</a>
-        <div class="small">Tip: After signing in, you’ll land in the Gemini app automatically.</div>
-      </div>
-    </section>
-
-    <section class="section" id="features">
-      <h2>Why use Meeting Assistant?</h2>
-      <div class="grid">
-        <div class="feature"><strong>Fast summaries</strong><br/>Turn long discussions into bullet points.</div>
-        <div class="feature"><strong>Smart context</strong><br/>Upload an agenda or doc and get grounded answers.</div>
-        <div class="feature"><strong>Private by design</strong><br/>Your login stays with Google; we hold no secrets.</div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="ads">
-        <strong>Ad space (AdSense)</strong><br/>
-        When approved, replace this box with an <code>&lt;ins class="adsbygoogle"&gt;</code> unit.
-      </div>
-    </section>
-
-    <section class="section" id="faq">
-      <h2>FAQ</h2>
-      <p><strong>Do I need to pay?</strong> No. You use your own Google account inside Gemini. Any usage is between you and Google.</p>
-      <p><strong>Is my data safe?</strong> Authentication and app hosting are on Google. Don’t share passwords or sensitive info in prompts.</p>
-    </section>
+    <div class="card">
+      <h1>Meeting Assistant</h1>
+      <p>Summarize, transcribe, and manage meetings with Gemini. Use your own Google account — we never handle your credentials.</p>
+      <button class="btn" onclick="startGoogleSignin()">Continue to Google</button>
+      <a class="ghost" href="https://g.co/gemini/share/816a84550275" target="_blank" rel="noopener">Open the app directly</a>
+      <div class="small">After signing in, you'll land in the Gemini app automatically.</div>
+    </div>
   </main>
 
+  <section class="section" id="features">
+    <h2>Why use Meeting Assistant?</h2>
+    <div class="grid">
+      <div class="feature"><strong>Fast summaries</strong><br/>Turn long discussions into bullet points.</div>
+      <div class="feature"><strong>Smart context</strong><br/>Upload an agenda or doc and get grounded answers.</div>
+      <div class="feature"><strong>Private by design</strong><br/>Auth and hosting live on Google; we keep no credentials.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="ads">
+      <strong>Ad space (AdSense)</strong><br/>
+      Once approved, replace this with an <code>&lt;ins class="adsbygoogle"&gt;</code> unit.
+    </div>
+  </section>
+
   <footer>
-    © LynixAI • Built by Fawzix AI Solutions. <br/>
-    This site uses cookies for basic analytics and ads (once approved). See <a href="/privacy.html">Privacy</a> and <a href="/terms.html">Terms</a>.
+    © 2025 Fawzix AI Solutions • <a href="/privacy.html">Privacy</a> • <a href="/terms.html">Terms</a>
   </footer>
 </body>
 </html>
