@@ -329,13 +329,7 @@
                     statusMessage.textContent = 'Recording... Speak clearly.';
 
                 } catch (err) {
-                    if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
-                        displayError('No microphone found. Please ensure a microphone is connected and enabled.');
-                    } else if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
-                        displayError('Microphone access denied. Please allow microphone permissions in your browser settings and try again.');
-                    } else {
-                        displayError('An error occurred while accessing the microphone. See console for details.');
-                    }
+                    displayError('Microphone access denied. Please allow microphone permissions and try again.');
                     console.error("Microphone access error:", err);
                     isRecording = false;
                     recordBtn.disabled = false;
@@ -488,4 +482,3 @@
     </script>
 </body>
 </html>
-
