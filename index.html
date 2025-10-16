@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Meeting Assistant • Fawzix AI Solutions</title>
   <meta name="description" content="Launch the Gemini-powered Meeting Assistant by Fawzix AI Solutions. Sign in with your Google account to continue." />
-  <!-- AdSense: paste your client id when approved
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script>
-  -->
   <link rel="preconnect" href="https://accounts.google.com" />
   <link rel="preconnect" href="https://g.co" />
   <style>
@@ -23,13 +20,11 @@
     p  { margin:.5rem 0 1.25rem; color:var(--muted); }
     .btn { display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:10px; background:var(--btn); color:#fff; text-decoration:none; font-weight:600; border:none; cursor:pointer; }
     .btn:hover { background:var(--btnh); }
-    .ghost { margin-top:10px; display:block; color:#334155; font-size:.92rem; }
     .small { margin-top:14px; color:#64748b; font-size:.85rem; }
     .section { max-width:1100px; margin:24px auto; padding:0 24px; }
     .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:16px; }
     .feature { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px; }
     footer { margin:36px auto 24px; padding:12px 24px; max-width:1100px; color:#6b7280; font-size:.9rem; text-align:center; }
-    .ads { background:#f1f5f9; border:1px dashed #cbd5e1; border-radius:12px; padding:12px; color:#475569; }
   </style>
   <script>
     function startGoogleSignin() { window.location.href = "https://accounts.google.com/AccountChooser?flowName=GlifWebSignIn&flowEntry=ServiceLogin&continue=https%3A%2F%2Fg.co%2Fgemini%2Fshare%2F816a84550275"; }
@@ -46,7 +41,6 @@
       <h1>Meeting Assistant</h1>
       <p>Summarize, transcribe, and manage meetings with Gemini. Use your own Google account — we never handle your credentials.</p>
       <button class="btn" onclick="startGoogleSignin()">Continue to Google</button>
-      <a class="ghost" href="https://g.co/gemini/share/816a84550275" target="_blank" rel="noopener">Open the app directly</a>
       <div class="small">After signing in, you'll land in the Gemini app automatically.</div>
     </div>
   </main>
@@ -57,13 +51,6 @@
       <div class="feature"><strong>Fast summaries</strong><br/>Turn long discussions into bullet points.</div>
       <div class="feature"><strong>Smart context</strong><br/>Upload an agenda or doc and get grounded answers.</div>
       <div class="feature"><strong>Private by design</strong><br/>Auth and hosting live on Google; we keep no credentials.</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="ads">
-      <strong>Ad space (AdSense)</strong><br/>
-      Once approved, replace this with an <code>&lt;ins class="adsbygoogle"&gt;</code> unit.
     </div>
   </section>
 
