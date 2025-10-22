@@ -1,14 +1,139 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Privacy Policy • Fawzix AI Solutions</title>
-<style>body {font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:40px auto;max-width:860px;padding:0 16px;line-height:1.6;color:#0f172a} h1 {color:#1e3a8a}</style></head>
-<body><h1>Privacy Policy</h1>
-<p><em>Last updated: 2025-10-16</em></p>
-<p>We operate this website (meet.lynixai.com) under the umbrella of Fawzix AI Solutions. The core Meeting Assistant app runs on Google Gemini. You authenticate directly with Google; we do not receive your Google credentials.</p>
-<h2>What we collect</h2>
-<ul><li>Basic, non-personal analytics (page views, referrers) to improve the site.</li><li>Advertising cookies may be used in the future if Google AdSense is enabled.</li></ul>
-<h2>What we don't collect</h2>
-<ul><li>No passwords or payment details.</li><li>No recording of prompts or meeting content by us. Content you enter in Gemini is governed by Google’s policies.</li></ul>
-<h2>Contact</h2>
-<p>Questions? Email us at <a href="mailto:info@fawzixai.com">info@fawzixai.com</a>.</p>
-</body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meet.AI Privacy Policy</title>
+  <meta name="description" content="Understand how Meet.AI protects your data with local processing, zero chat posting, and transparent website analytics practices." />
+  <style>
+    :root {
+      --bg:#f8fafc;
+      --surface:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --primary:#2563eb;
+      --border:#e2e8f0;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+    }
+    header {
+      background:#0b2665;
+      color:#e0ecff;
+      padding:24px 0;
+    }
+    .nav {
+      max-width:920px;
+      margin:0 auto;
+      padding:0 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .nav a {
+      color:#bfdbfe;
+      text-decoration:none;
+      font-weight:600;
+      margin-left:18px;
+    }
+    .nav a:hover { text-decoration:underline; }
+    main { max-width:920px; margin:0 auto; padding:48px 24px 80px; }
+    h1 {
+      margin:0 0 12px;
+      font-size:2.3rem;
+      color:#0b2665;
+    }
+    h2 {
+      margin:36px 0 12px;
+      font-size:1.55rem;
+      color:#0b2665;
+    }
+    section { margin-top:40px; }
+    p { margin:0 0 16px; color:var(--muted); }
+    ul { margin:0 0 18px; padding-left:20px; color:var(--muted); }
+    li { margin-bottom:10px; }
+    .card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:24px;
+      box-shadow:0 16px 32px rgba(15,23,42,.08);
+      margin-top:20px;
+    }
+    footer {
+      text-align:center;
+      padding:24px;
+      color:#6b7280;
+      font-size:.95rem;
+    }
+    footer a {
+      color:#1d4ed8;
+      margin:0 10px;
+      text-decoration:none;
+    }
+    footer a:hover { text-decoration:underline; }
+    @media (max-width:640px) {
+      .nav { flex-direction:column; gap:12px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <span style="font-weight:700; letter-spacing:.05em;">Meet.AI</span>
+      <nav>
+        <a href="/index.html">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/terms.html">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Privacy Policy</h1>
+    <p><em>Last updated: 2025-10-22</em></p>
+    <p>Meet.AI is built as a privacy-first backchannel for meetings. This policy explains what information we collect, how we use it, and the controls available to you when you interact with our website and companion tool.</p>
+
+    <section>
+      <h2>Core Commitments</h2>
+      <div class="card">
+        <ul>
+          <li><strong>Local listening:</strong> Audio stays on your device while the mic is active. Sessions reset when you close Meet.AI.</li>
+          <li><strong>No chat posting:</strong> We never post messages back into meeting chat or share responses with other attendees.</li>
+          <li><strong>Minimal website data:</strong> Only lightweight analytics are captured to understand aggregate usage.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Website Analytics</h2>
+      <p>We may use privacy-friendly analytics to measure visits, referring pages, and general engagement. Data is aggregated and does not include personal identifiers.</p>
+      <p>If Google AdSense is enabled in the future, their cookies and policies will apply. You will see clear notice and the option to manage consent before ads are displayed.</p>
+    </section>
+
+    <section>
+      <h2>Meet.AI Companion Tool</h2>
+      <div class="card">
+        <ul>
+          <li>Authentication happens directly with Google. We do not receive your Google credentials.</li>
+          <li>Audio is interpreted locally and discarded when you end or close the session.</li>
+          <li>Optional documents you provide for context are encrypted in transit and purged when the session ends.</li>
+        </ul>
+      </div>
+      <p>Future features like meeting notes or recordings will ship with explicit opt-in controls and storage options that keep you in charge of your data.</p>
+    </section>
+
+    <section>
+      <h2>Data Requests &amp; Questions</h2>
+      <p>If you have privacy questions, would like to review data associated with your account, or need a DPA for your organization, email <a href="mailto:info@fawzixai.com">info@fawzixai.com</a>.</p>
+    </section>
+  </main>
+
+  <footer><small>© 2025 LynixAI (a Fawzix AI Solutions brand).</small></footer>
+</body>
+</html>

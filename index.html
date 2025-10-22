@@ -122,6 +122,12 @@
       align-items:center;
       gap:8px;
     }
+    .hero-note {
+      margin:24px auto 0;
+      max-width:620px;
+      color:#1f2937;
+      font-size:1rem;
+    }
     .section {
       max-width:1100px;
       margin:64px auto 0;
@@ -224,6 +230,12 @@
       color:#fff;
     }
     .cta-banner p { margin:12px auto 24px; max-width:560px; }
+    .cta-subtext {
+      margin:-8px auto 24px;
+      max-width:520px;
+      color:#e0f2fe;
+      font-size:.95rem;
+    }
     footer {
       margin:72px auto 24px;
       padding:12px 24px;
@@ -281,6 +293,14 @@
           "@type": "Answer",
           "text": "Meet.AI is optimized for Google Meet and Zoom today, with additional integrations planned for other leading video platforms."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Meet.AI save session data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Meet.AI keeps sessions ephemeral. Close the companion window and the backchannel resets, leaving no conversation history behind."
+        }
       }
     ]
   }
@@ -310,7 +330,9 @@
         <span class="trust-badge">Works with Google Meet</span>
         <span class="trust-badge">Works with Zoom</span>
         <span class="trust-badge">No chat postings</span>
+        <span class="trust-badge">Session resets on close</span>
       </div>
+      <p class="hero-note">Start Meet.AI alongside your meeting, tap the mic to let it listen, and see instant text replies in a private window. Close the tool and the session resets — nothing is saved.</p>
     </section>
 
     <section class="section" id="how-it-works">
@@ -327,7 +349,7 @@
         <article class="step">
           <div class="step-number">2</div>
           <h3>Tap the backchannel</h3>
-          <p>Trigger quick prompts or ask clarifying questions. Meet.AI listens discreetly and drafts answers you can skim instantly.</p>
+          <p>Click the mic to activate the stream when you need help. Meet.AI listens only while it is engaged and returns fast text you can skim in seconds.</p>
         </article>
         <article class="step">
           <div class="step-number">3</div>
@@ -370,7 +392,7 @@
       <div class="cards-grid">
         <article class="card">
           <h3>Sales and customer calls</h3>
-          <p>Surface tailored responses, competitive intel, and next steps without breaking eye contact with the buyer.</p>
+          <p>Surface tailored responses, competitive intel, and next steps without breaking eye contact when you do not have the answer ready.</p>
         </article>
         <article class="card">
           <h3>Product reviews</h3>
@@ -399,7 +421,7 @@
         </article>
         <article class="card">
           <h3>Ephemeral memory</h3>
-          <p>Meeting snippets self-expire after each session. Optional context you supply is encrypted in transit and wiped on completion.</p>
+          <p>Meeting snippets self-expire after each session. Close the companion window and everything clears; optional context you supply is encrypted in transit and wiped on completion.</p>
         </article>
       </div>
     </section>
@@ -442,12 +464,17 @@
         <summary>Can I customize responses with my team’s playbooks?</summary>
         <p>Yes. Upload optional context files securely to guide the assistant, and they are encrypted and cleared as soon as the session ends.</p>
       </details>
+      <details>
+        <summary>Does Meet.AI save any part of my session?</summary>
+        <p>No. Meet.AI keeps everything transient. When you close the tool, the backchannel resets and nothing is stored for the next meeting.</p>
+      </details>
     </section>
 
     <section class="section">
       <div class="cta-banner" id="cta">
         <h2>Ready for a private AI backchannel?</h2>
         <p>Join Meet.AI to stay focused on every conversation while an invisible assistant prepares your best response.</p>
+        <p class="cta-subtext">Recording, meeting notes, and deeper collaboration features are coming soon.</p>
         <div class="hero-buttons">
           <button class="btn primary" type="button" onclick="startGoogleSignin()">Try Meet.AI</button>
           <a class="btn secondary" href="mailto:info@fawzixai.com">Talk to us</a>
@@ -456,10 +483,7 @@
     </section>
   </main>
 
-  <footer>
-      Questions or feedback? <a href="mailto:info@fawzixai.com">info@fawzixai.com</a><br>
-      <a href="about.html">About</a> • <a href="privacy.html">Privacy</a> • <a href="terms.html">Terms</a>
-  </footer>
+  <footer><small>© 2025 LynixAI (a Fawzix AI Solutions brand).</small></footer>
 
   <!-- Cookie Consent Banner -->
   <div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:#1e3a8a;color:#fff;padding:12px 16px;text-align:center;font-size:14px;z-index:9999;">
