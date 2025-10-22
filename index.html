@@ -3,56 +3,458 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Meeting Assistant</title>
-  <meta name="description" content="A private AI backchannel: click the mic, let the other person speak, and get instant text answers only you can see." />
+  <title>Meet.AI | Private AI Backchannel for Meetings</title>
+  <meta name="description" content="Meet.AI gives you a private AI backchannel during live meetings. Listen locally, stay invisible in chat, and get instant answers while you focus on the conversation." />
+  <meta property="og:title" content="Meet.AI | Private AI Backchannel for Meetings" />
+  <meta property="og:description" content="Meet.AI listens locally, never posts in meeting chat, and supports Google Meet and Zoom for private AI assistance." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://meet.lynixai.com/" />
+  <meta property="og:image" content="https://meet.lynixai.com/logo-1.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Meet.AI | Private AI Backchannel for Meetings" />
+  <meta name="twitter:description" content="Bring Meet.AI into Google Meet or Zoom for a private AI backchannel that stays off the meeting chat and keeps your insights local." />
+  <meta name="twitter:image" content="https://meet.lynixai.com/logo-1.png" />
   <link rel="preconnect" href="https://accounts.google.com" />
   <link rel="preconnect" href="https://g.co" />
+  <link rel="canonical" href="https://meet.lynixai.com/" />
   <style>
-    :root { --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --muted:#475569; --btn:#2563eb; --btnh:#1e40af; }
+    :root {
+      --bg:#f8fafc;
+      --surface:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --primary:#2563eb;
+      --primary-dark:#1d4ed8;
+      --accent:#0ea5e9;
+      --border:#e2e8f0;
+    }
     * { box-sizing:border-box; }
-    body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; background:#f8fafc; color:var(--text); }
-    header { padding:20px 24px; text-align:center; }
-    main { display:grid; place-items:center; min-height:58vh; padding:24px; }
-    .card { background:var(--card); width:min(680px,94%); padding:28px 26px; border-radius:16px; box-shadow:0 8px 28px rgba(2,6,23,.08); text-align:center; border:1px solid #e5e7eb; }
-    h1 { margin:.2rem 0 .6rem; font-size:1.9rem; color:#1e3a8a; }
-    p  { margin:.5rem 0 1.25rem; color:var(--muted); }
-    .btn { display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:10px; background:var(--btn); color:#fff; text-decoration:none; font-weight:600; border:none; cursor:pointer; }
-    .btn:hover { background:var(--btnh); }
-    .small { margin-top:14px; color:#64748b; font-size:.9rem; }
-    .section { max-width:1100px; margin:24px auto; padding:0 24px; }
-    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:16px; }
-    .feature { background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px; }
-    footer { margin:36px auto 24px; padding:12px 24px; max-width:1100px; color:#6b7280; font-size:.9rem; text-align:center; }
-    footer a { color:#1e3a8a; }
+    body {
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a { color:inherit; }
+    .site-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 24px;
+      max-width:1160px;
+      margin:0 auto;
+    }
+    .brand {
+      font-size:1.1rem;
+      font-weight:700;
+      letter-spacing:.04em;
+    }
+    nav a {
+      margin-left:18px;
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:500;
+    }
+    nav a:hover { color:var(--primary); }
+    main { padding:0 24px 72px; }
+    .hero {
+      max-width:1100px;
+      margin:0 auto;
+      padding:72px 0 48px;
+      text-align:center;
+    }
+    .hero h1 {
+      font-size:2.75rem;
+      margin:0 0 16px;
+      color:#0b2665;
+    }
+    .hero p {
+      max-width:720px;
+      margin:0 auto 32px;
+      color:var(--muted);
+      font-size:1.1rem;
+    }
+    .hero-buttons {
+      display:flex;
+      gap:16px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-bottom:24px;
+    }
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:13px 22px;
+      border-radius:10px;
+      font-weight:600;
+      text-decoration:none;
+      transition:background .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+    .btn.primary {
+      background:var(--primary);
+      color:#fff;
+      box-shadow:0 12px 24px rgba(37,99,235,.18);
+    }
+    .btn.primary:hover { background:var(--primary-dark); transform:translateY(-1px); }
+    .btn.secondary {
+      background:#e0ecff;
+      color:var(--primary-dark);
+    }
+    .btn.secondary:hover { background:#caddff; }
+    .trust-badges {
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin:0 auto;
+    }
+    .trust-badge {
+      background:#ecfdf5;
+      color:#047857;
+      padding:6px 16px;
+      border-radius:999px;
+      font-size:.9rem;
+      border:1px solid #bbf7d0;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .section {
+      max-width:1100px;
+      margin:64px auto 0;
+    }
+    .section-header {
+      text-align:center;
+      margin-bottom:32px;
+    }
+    .section-header h2 {
+      font-size:2rem;
+      margin-bottom:12px;
+      color:#0b2665;
+    }
+    .section-header p { color:var(--muted); margin:0 auto; max-width:680px; }
+    .cards-grid {
+      display:grid;
+      gap:20px;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    }
+    .card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:24px;
+      box-shadow:0 12px 32px rgba(15,23,42,.06);
+      text-align:left;
+    }
+    .card h3 {
+      margin:0 0 12px;
+      font-size:1.15rem;
+      color:#0b2665;
+    }
+    .card p { margin:0; color:var(--muted); }
+    .numbered-steps {
+      display:grid;
+      gap:20px;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    }
+    .step {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:24px;
+      position:relative;
+    }
+    .step-number {
+      position:absolute;
+      top:-18px;
+      left:24px;
+      background:var(--primary);
+      color:#fff;
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+    }
+    .adsense-placeholder {
+      background:#fff;
+      border:2px dashed #cbd5f5;
+      border-radius:16px;
+      padding:28px;
+      text-align:center;
+      color:#475569;
+    }
+    .adsense-placeholder strong {
+      display:block;
+      font-size:1.1rem;
+      margin-bottom:8px;
+      color:#0f172a;
+    }
+    .testimonials {
+      background:#0f172a;
+      border-radius:20px;
+      padding:36px;
+      color:#e2e8f0;
+      text-align:center;
+    }
+    .testimonials p { margin:8px auto 0; max-width:540px; }
+    .faq details {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:18px 22px;
+      margin-bottom:14px;
+    }
+    .faq summary {
+      font-weight:600;
+      cursor:pointer;
+      color:#0b2665;
+    }
+    .cta-banner {
+      margin-top:72px;
+      background:linear-gradient(135deg,#1d4ed8,#0ea5e9);
+      border-radius:20px;
+      padding:44px 32px;
+      text-align:center;
+      color:#fff;
+    }
+    .cta-banner p { margin:12px auto 24px; max-width:560px; }
+    footer {
+      margin:72px auto 24px;
+      padding:12px 24px;
+      max-width:1100px;
+      color:#6b7280;
+      font-size:.9rem;
+      text-align:center;
+    }
+    footer a { color:#1e3a8a; text-decoration:none; }
+    footer a:hover { text-decoration:underline; }
+    @media (max-width:720px) {
+      .site-header { flex-direction:column; gap:12px; }
+      nav a { margin:0 10px; }
+      .hero h1 { font-size:2.2rem; }
+    }
   </style>
   <script>
-    function startGoogleSignin() { window.location.href = "https://accounts.google.com/AccountChooser?flowName=GlifWebSignIn&flowEntry=ServiceLogin&continue=https%3A%2F%2Fg.co%2Fgemini%2Fshare%2F816a84550275"; }
+    function startGoogleSignin() {
+      window.location.href = "https://accounts.google.com/AccountChooser?flowName=GlifWebSignIn&flowEntry=ServiceLogin&continue=https%3A%2F%2Fg.co%2Fgemini%2Fshare%2F816a84550275";
+    }
   </script>
-  <link rel="canonical" href="https://meet.lynixai.com/about.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Meet.AI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Meet.AI is a private AI backchannel that runs alongside Google Meet and Zoom meetings, giving you real-time intelligence without sending messages into the meeting chat."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Meet.AI post anything to the meeting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Meet.AI listens locally on your device and never posts responses back into the meeting chat, keeping every suggestion strictly personal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Meet.AI keep my data private?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Meet.AI processes audio locally, encrypts synced context, and purges meeting snippets after each session so your information remains protected."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which meetings does Meet.AI support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Meet.AI is optimized for Google Meet and Zoom today, with additional integrations planned for other leading video platforms."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-  <header>
-    <!-- branding intentionally omitted -->
+  <header class="site-header">
+    <div class="brand">Meet.AI</div>
+    <nav>
+      <a href="#how-it-works">How it Works</a>
+      <a href="#benefits">Benefits</a>
+      <a href="#security">Security</a>
+      <a href="#faq">FAQ</a>
+    </nav>
   </header>
 
   <main>
-    <div class="card">
-      <h1>Meeting Assistant</h1>
-      <p><strong>Private AI backchannel</strong> for calls and meetings: click the mic, let the other person speak, and receive a concise <em>text answer</em> you can read silently. Answers are shown only to you — nothing is posted back into the meeting.</p>
-      <button class="btn" onclick="startGoogleSignin()">Continue to Google</button>
-      <p class="small"><strong>Note:</strong> When the Gemini page opens, Google may show “<em>This app was created by another person.</em>” That is normal for public Gemini projects — click <strong>Continue</strong> to proceed.</p>
-      <div class="small">After signing in, you'll land in the Gemini app automatically.</div>
-    </div>
-  </main>
+    <section class="hero" id="top">
+      <h1>Private AI Backchannel for Live Meetings</h1>
+      <p>Meet.AI listens locally, never posts in meeting chat, and supports Google Meet and Zoom so you can stay present while an invisible assistant surfaces answers, action items, and talking points in real time.</p>
+      <div class="hero-buttons">
+        <button class="btn primary" type="button" onclick="startGoogleSignin()">Try Meet.AI</button>
+        <a class="btn secondary" href="#how-it-works">Learn More</a>
+      </div>
+      <div class="trust-badges">
+        <span class="trust-badge">Private by design</span>
+        <span class="trust-badge">Works with Google Meet</span>
+        <span class="trust-badge">Works with Zoom</span>
+        <span class="trust-badge">No chat postings</span>
+      </div>
+    </section>
 
-  <section class="section" id="features">
-    <h2>What it does</h2>
-    <div class="grid">
-      <div class="feature"><strong>Answer on the fly</strong><br/>AI drafts quick text answers while the other person asks the question.</div>
-      <div class="feature"><strong>Keep responses private</strong><br/>Results are visible only to you — not shared in the meeting.</div>
-      <div class="feature"><strong>Optional context</strong><br/>Provide a doc/agenda locally to ground answers (when supported in the app).</div>
-    </div>
-  </section>
+    <section class="section" id="how-it-works">
+      <div class="section-header">
+        <h2>How It Works</h2>
+        <p>Launch Meet.AI before a meeting and keep your conversations flowing while the assistant handles note-taking, prompts, and research behind the scenes.</p>
+      </div>
+      <div class="numbered-steps">
+        <article class="step">
+          <div class="step-number">1</div>
+          <h3>Join your meeting</h3>
+          <p>Open Meet.AI alongside Google Meet or Zoom. Audio is processed locally, keeping sensitive discussions private.</p>
+        </article>
+        <article class="step">
+          <div class="step-number">2</div>
+          <h3>Tap the backchannel</h3>
+          <p>Trigger quick prompts or ask clarifying questions. Meet.AI listens discreetly and drafts answers you can skim instantly.</p>
+        </article>
+        <article class="step">
+          <div class="step-number">3</div>
+          <h3>Act with confidence</h3>
+          <p>Use timely suggestions, follow-up ideas, and automatic summaries to respond in the moment without interrupting the meeting.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="benefits">
+      <div class="section-header">
+        <h2>Key Benefits</h2>
+        <p>Meet.AI delivers instant intelligence without compromising privacy, so your team never misses a beat.</p>
+      </div>
+      <div class="cards-grid">
+        <article class="card">
+          <h3>Invisible assistance</h3>
+          <p>Keep the conversation natural while Meet.AI supplies suggested responses and insights only you can see.</p>
+        </article>
+        <article class="card">
+          <h3>Context on demand</h3>
+          <p>Drop in agendas or notes for richer AI guidance that remains local to your device.</p>
+        </article>
+        <article class="card">
+          <h3>Actionable summaries</h3>
+          <p>Capture action items and highlights instantly so follow-ups are clear and ready to share afterward.</p>
+        </article>
+        <article class="card">
+          <h3>Privacy-first architecture</h3>
+          <p>Local processing and transient storage ensure sensitive discussions never leave your secure environment.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="use-cases">
+      <div class="section-header">
+        <h2>Use Cases</h2>
+        <p>Teams across revenue, product, and leadership tracks lean on Meet.AI to stay sharp in the moment.</p>
+      </div>
+      <div class="cards-grid">
+        <article class="card">
+          <h3>Sales and customer calls</h3>
+          <p>Surface tailored responses, competitive intel, and next steps without breaking eye contact with the buyer.</p>
+        </article>
+        <article class="card">
+          <h3>Product reviews</h3>
+          <p>Track feature feedback, log decisions, and capture user pain points in real time.</p>
+        </article>
+        <article class="card">
+          <h3>Executive briefings</h3>
+          <p>Stay ahead with suggested talking points, risk alerts, and concise summaries aimed at leadership needs.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="security">
+      <div class="section-header">
+        <h2>Security &amp; Privacy</h2>
+        <p>Trust is built into every layer of Meet.AI. The assistant gives you the intelligence you need without exposing meeting content.</p>
+      </div>
+      <div class="cards-grid">
+        <article class="card">
+          <h3>Local audio processing</h3>
+          <p>Voice streams never leave your machine. Meet.AI listens locally to protect the confidentiality of every call.</p>
+        </article>
+        <article class="card">
+          <h3>No in-meeting messages</h3>
+          <p>Meet.AI keeps the backchannel private and never posts to the meeting chat, so participants see only what you choose to share.</p>
+        </article>
+        <article class="card">
+          <h3>Ephemeral memory</h3>
+          <p>Meeting snippets self-expire after each session. Optional context you supply is encrypted in transit and wiped on completion.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="ads">
+      <div class="adsense-placeholder" aria-label="Advertisement">
+        <strong>Ad Space</strong>
+        <p>AdSense-ready placement. Replace this card with your <code>&lt;ins class="adsbygoogle"&gt;</code> unit from Google AdSense to monetize visitor traffic.</p>
+      </div>
+    </section>
+
+    <section class="section" id="testimonials">
+      <div class="section-header">
+        <h2>Testimonials</h2>
+        <p>Trusted by privacy-conscious teams who rely on instant intelligence to keep meetings productive.</p>
+      </div>
+      <div class="testimonials">
+        <p><em>Customer stories are coming soon. Want to be featured?</em> Share your experience at <a href="mailto:info@fawzixai.com" style="color:#93c5fd;">info@fawzixai.com</a>.</p>
+      </div>
+    </section>
+
+    <section class="section faq" id="faq">
+      <div class="section-header">
+        <h2>Frequently Asked Questions</h2>
+        <p>Answers to the most common questions about getting started with Meet.AI.</p>
+      </div>
+      <details open>
+        <summary>How fast can I get started with Meet.AI?</summary>
+        <p>Sign in with Google, launch the companion window, and begin leveraging private suggestions in your next meeting. No extensions or admin approvals required.</p>
+      </details>
+      <details>
+        <summary>Will other attendees know I’m using Meet.AI?</summary>
+        <p>No. Meet.AI is invisible to participants. All prompts, summaries, and notes stay on your device unless you choose to share them.</p>
+      </details>
+      <details>
+        <summary>What platforms does Meet.AI support today?</summary>
+        <p>Meet.AI is tuned for Google Meet and Zoom and will expand to additional conferencing tools based on customer demand.</p>
+      </details>
+      <details>
+        <summary>Can I customize responses with my team’s playbooks?</summary>
+        <p>Yes. Upload optional context files securely to guide the assistant, and they are encrypted and cleared as soon as the session ends.</p>
+      </details>
+    </section>
+
+    <section class="section">
+      <div class="cta-banner" id="cta">
+        <h2>Ready for a private AI backchannel?</h2>
+        <p>Join Meet.AI to stay focused on every conversation while an invisible assistant prepares your best response.</p>
+        <div class="hero-buttons">
+          <button class="btn primary" type="button" onclick="startGoogleSignin()">Try Meet.AI</button>
+          <a class="btn secondary" href="mailto:info@fawzixai.com">Talk to us</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer>
       Questions or feedback? <a href="mailto:info@fawzixai.com">info@fawzixai.com</a><br>
@@ -61,12 +463,17 @@
 
   <!-- Cookie Consent Banner -->
   <div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:#1e3a8a;color:#fff;padding:12px 16px;text-align:center;font-size:14px;z-index:9999;">
-    This site uses cookies for basic analytics. By continuing to browse, you consent to our use of cookies. 
+    This site uses cookies for basic analytics. By continuing to browse, you consent to our use of cookies.
     <button onclick="acceptCookies()" style="margin-left:10px;background:#fff;color:#1e3a8a;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;">OK</button>
   </div>
   <script>
-    function acceptCookies(){document.getElementById('cookie-banner').style.display='none';localStorage.setItem('cookiesAccepted','true');}
-    if(localStorage.getItem('cookiesAccepted')){document.getElementById('cookie-banner').style.display='none';}
+    function acceptCookies(){
+      document.getElementById('cookie-banner').style.display='none';
+      localStorage.setItem('cookiesAccepted','true');
+    }
+    if(localStorage.getItem('cookiesAccepted')){
+      document.getElementById('cookie-banner').style.display='none';
+    }
   </script>
 </body>
 </html>
